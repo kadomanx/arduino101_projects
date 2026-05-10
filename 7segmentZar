@@ -1,4 +1,3 @@
-// 7 Segment Display Pinleri
 int pinA = 3;
 int pinB = 4;
 int pinC = 5;
@@ -7,7 +6,7 @@ int pinE = 7;
 int pinF = 8;
 int pinG = 9;
 
-int butonPini = 2; // Zarı atacağımız buton
+int butonPini = 2;
 
 void setup() {
   pinMode(pinA, OUTPUT);
@@ -26,13 +25,11 @@ void setup() {
 
 void loop() {
   if (digitalRead(butonPini) == LOW) {
-    // Zar atma efekti
     for(int i=0; i<10; i++){
       zarYazdir(random(1, 7));
       delay(50);
     }
     
-    // Son zar
     int gelenZar = random(1, 7); 
     zarYazdir(gelenZar);
     
@@ -40,10 +37,8 @@ void loop() {
   }
 }
 
-// 5611BH Ortak Anot (Common Anode) uyumlu fonksiyon
-// YANMASI istenen LED'e LOW, SÖNMESİ istenen LED'e HIGH gönderilir.
 void zarYazdir(int sayi) {
-  ekraniTemizle(); // Önce hepsini söndür
+  ekraniTemizle();
   
   if (sayi == 1) {
     digitalWrite(pinB, LOW);
@@ -85,9 +80,6 @@ void zarYazdir(int sayi) {
     digitalWrite(pinG, LOW);
   }
 }
-
-// 5611BH Ortak Anot için ekranı temizleme
-// Tüm pinleri HIGH yaparak ledleri söndürür
 void ekraniTemizle() {
   digitalWrite(pinA, HIGH);
   digitalWrite(pinB, HIGH);
