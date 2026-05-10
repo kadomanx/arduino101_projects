@@ -10,7 +10,6 @@ int pinG = 9;
 int butonPini = 2; // Zarı atacağımız buton
 
 void setup() {
-  // Bütün display pinlerini çıkış olarak ayarlıyoruz
   pinMode(pinA, OUTPUT);
   pinMode(pinB, OUTPUT);
   pinMode(pinC, OUTPUT);
@@ -19,85 +18,82 @@ void setup() {
   pinMode(pinF, OUTPUT);
   pinMode(pinG, OUTPUT);
 
-  // Butonu giriş olarak ayarlıyoruz (Dahili direnç kullanarak)
   pinMode(butonPini, INPUT_PULLUP);
-  
-  // Rastgele sayı üretimini daha doğal yapmak için boş bir analog pinden referans alıyoruz
   randomSeed(analogRead(A0)); 
   
-  ekraniTemizle(); // Başlangıçta ekran kapalı olsun
+  ekraniTemizle(); 
 }
 
 void loop() {
-  // Butona basıldıysa (INPUT_PULLUP kullandığımız için LOW durumunda basılmış olur)
   if (digitalRead(butonPini) == LOW) {
-    
-    // Zar atma efekti (Hızlıca rastgele sayılar gösterir)
+    // Zar atma efekti
     for(int i=0; i<10; i++){
       zarYazdir(random(1, 7));
       delay(50);
     }
     
-    // Son olarak gerçek zarı at ve ekranda bırak
-    int gelenZar = random(1, 7); // 1 ile 6 arasında sayı üretir (7 dahil değil)
+    // Son zar
+    int gelenZar = random(1, 7); 
     zarYazdir(gelenZar);
     
-    delay(1000); // Butona basılı tutulursa sürekli atmasını engellemek için bekleme
+    delay(1000); 
   }
 }
 
-// Gelen sayıya göre hangi LED'lerin yanacağını seçen fonksiyon
+// 5611BH Ortak Anot (Common Anode) uyumlu fonksiyon
+// YANMASI istenen LED'e LOW, SÖNMESİ istenen LED'e HIGH gönderilir.
 void zarYazdir(int sayi) {
-  ekraniTemizle(); // Önceki rakamı sil
+  ekraniTemizle(); // Önce hepsini söndür
   
   if (sayi == 1) {
-    digitalWrite(pinB, HIGH);
-    digitalWrite(pinC, HIGH);
+    digitalWrite(pinB, LOW);
+    digitalWrite(pinC, LOW);
   } 
   else if (sayi == 2) {
-    digitalWrite(pinA, HIGH);
-    digitalWrite(pinB, HIGH);
-    digitalWrite(pinD, HIGH);
-    digitalWrite(pinE, HIGH);
-    digitalWrite(pinG, HIGH);
+    digitalWrite(pinA, LOW);
+    digitalWrite(pinB, LOW);
+    digitalWrite(pinD, LOW);
+    digitalWrite(pinE, LOW);
+    digitalWrite(pinG, LOW);
   } 
   else if (sayi == 3) {
-    digitalWrite(pinA, HIGH);
-    digitalWrite(pinB, HIGH);
-    digitalWrite(pinC, HIGH);
-    digitalWrite(pinD, HIGH);
-    digitalWrite(pinG, HIGH);
+    digitalWrite(pinA, LOW);
+    digitalWrite(pinB, LOW);
+    digitalWrite(pinC, LOW);
+    digitalWrite(pinD, LOW);
+    digitalWrite(pinG, LOW);
   } 
   else if (sayi == 4) {
-    digitalWrite(pinB, HIGH);
-    digitalWrite(pinC, HIGH);
-    digitalWrite(pinF, HIGH);
-    digitalWrite(pinG, HIGH);
+    digitalWrite(pinB, LOW);
+    digitalWrite(pinC, LOW);
+    digitalWrite(pinF, LOW);
+    digitalWrite(pinG, LOW);
   } 
   else if (sayi == 5) {
-    digitalWrite(pinA, HIGH);
-    digitalWrite(pinC, HIGH);
-    digitalWrite(pinD, HIGH);
-    digitalWrite(pinF, HIGH);
-    digitalWrite(pinG, HIGH);
+    digitalWrite(pinA, LOW);
+    digitalWrite(pinC, LOW);
+    digitalWrite(pinD, LOW);
+    digitalWrite(pinF, LOW);
+    digitalWrite(pinG, LOW);
   } 
   else if (sayi == 6) {
-    digitalWrite(pinA, HIGH);
-    digitalWrite(pinC, HIGH);
-    digitalWrite(pinD, HIGH);
-    digitalWrite(pinE, HIGH);
-    digitalWrite(pinF, HIGH);
-    digitalWrite(pinG, HIGH);
+    digitalWrite(pinA, LOW);
+    digitalWrite(pinC, LOW);
+    digitalWrite(pinD, LOW);
+    digitalWrite(pinE, LOW);
+    digitalWrite(pinF, LOW);
+    digitalWrite(pinG, LOW);
   }
 }
 
-// Bütün LED'leri kapatan yardımcı fonksiyon
+// 5611BH Ortak Anot için ekranı temizleme
+// Tüm pinleri HIGH yaparak ledleri söndürür
 void ekraniTemizle() {
-  digitalWrite(pinA, LOW);
-  digitalWrite(pinB, LOW);
-  digitalWrite(pinC, LOW);
-  digitalWrite(pinD, LOW);
-  digitalWrite(pinE, LOW);
-  digitalWrite(pinF, LOW);
-  digitalWrite(pinG, LOW);
+  digitalWrite(pinA, HIGH);
+  digitalWrite(pinB, HIGH);
+  digitalWrite(pinC, HIGH);
+  digitalWrite(pinD, HIGH);
+  digitalWrite(pinE, HIGH);
+  digitalWrite(pinF, HIGH);
+  digitalWrite(pinG, HIGH);
 }
